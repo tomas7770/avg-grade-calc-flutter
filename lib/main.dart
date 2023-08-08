@@ -238,11 +238,39 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(width: 10),
         IconButton(
           icon: const Icon(Icons.delete),
-          onPressed: () => remove(index),
+          onPressed: () => _promptRemove(index),
         ),
       ],
     ),
   );
+
+  void _promptRemove(int index) {
+    Widget confirmRemoveButton = TextButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        Navigator.of(context).pop();
+        remove(index);
+      },
+    );
+    Widget cancelRemoveButton = TextButton(
+      child: const Text("No"),
+      onPressed: () {Navigator.of(context).pop();},
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Are you sure?"),
+          content: Text("Delete entry ${_entries[index].name}?"),
+          actions: [
+            cancelRemoveButton,
+            confirmRemoveButton,
+          ],
+        );
+      },
+    );
+  }
 
   void remove(int index) => setState(() {
     _entries.removeAt(index);
