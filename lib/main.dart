@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
         final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
         final entry = _entries.removeAt(oldIndex);
         _entries.insert(index, entry);
-      })),
+      }), padding: const EdgeInsets.only(bottom: 80.0),),
       floatingActionButton: FloatingActionButton(
         onPressed: _addEntry,
         tooltip: 'Add entry',
