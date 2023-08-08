@@ -60,6 +60,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getEditBuilder(String titleStr, Widget cancelButton, Widget confirmButton) {
+    Widget clearButton = TextButton(
+      child: const Text("Clear"),
+      onPressed: () {
+        nameController.text = "";
+        valueController.text = "";
+        weightController.text = "";
+      },
+    );
+
     return AlertDialog(
       title: Text(titleStr),
       content: Form(
@@ -114,6 +123,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       actions: [
+        clearButton,
         cancelButton,
         confirmButton,
       ],
