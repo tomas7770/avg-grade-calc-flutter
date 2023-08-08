@@ -71,11 +71,11 @@ class _HomePageState extends State<HomePage> {
             TextFormField(
               controller: nameController,
               decoration: const InputDecoration(
-                labelText: 'Name',
+                labelText: 'Course',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a name';
+                  return 'Please enter a course name';
                 }
                 return null;
               },
@@ -86,11 +86,11 @@ class _HomePageState extends State<HomePage> {
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))],
               decoration: const InputDecoration(
-                labelText: 'Value',
+                labelText: 'Grade',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty || double.tryParse(value) == null) {
-                  return 'Please enter a valid value';
+                  return 'Please enter a valid grade';
                 }
                 return null;
               },
