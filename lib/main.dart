@@ -59,6 +59,10 @@ class _HomePageState extends State<HomePage> {
     _average = sum/sumWeights;
   }
 
+  String prettyDouble(double x) {
+    return x % 1.0 == 0.0 ? x.toStringAsFixed(0) : x.toString();
+  }
+
   _getEditBuilder(String titleStr, Widget cancelButton, Widget confirmButton) {
     Widget clearButton = TextButton(
       child: const Text("Clear"),
@@ -179,10 +183,8 @@ class _HomePageState extends State<HomePage> {
     );
 
     nameController.text = _entries[index].name;
-    valueController.text = _entries[index].value % 1.0 == 0.0
-        ? _entries[index].value.toStringAsFixed(0) : _entries[index].value.toString();
-    weightController.text = _entries[index].weight % 1.0 == 0.0
-        ? _entries[index].weight.toStringAsFixed(0) : _entries[index].weight.toString();
+    valueController.text = prettyDouble(_entries[index].value);
+    weightController.text = prettyDouble(_entries[index].weight);
 
     showDialog(
       context: context,
@@ -240,6 +242,25 @@ class _HomePageState extends State<HomePage> {
     key: ValueKey(entry),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     title: Text(entry.name),
+    subtitle: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const Icon(Icons.class_),
+            Text(prettyDouble(entry.value)),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const Icon(Icons.balance),
+            Text(prettyDouble(entry.weight)),
+          ],
+        ),
+      ],
+    ),
     trailing: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
