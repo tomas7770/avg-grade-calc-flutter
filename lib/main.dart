@@ -249,6 +249,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           children: [
             const Icon(Icons.class_),
+            const SizedBox(width: 5),
             Text(prettyDouble(entry.value)),
           ],
         ),
@@ -256,6 +257,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           children: [
             const Icon(Icons.balance),
+            const SizedBox(width: 5),
             Text(prettyDouble(entry.weight)),
           ],
         ),
