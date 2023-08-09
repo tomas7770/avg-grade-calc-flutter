@@ -41,6 +41,8 @@ class Entry {
   double weight;
 }
 
+enum MenuOption { deleteAll }
+
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
@@ -194,6 +196,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _onMenuOptionSelected(MenuOption value) {
+    switch (value) {
+      case MenuOption.deleteAll:
+        _promptRemoveAll();
+        break;
+    }
+  }
+
   @override
   void dispose() {
     nameController.dispose();
@@ -208,6 +218,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          PopupMenuButton<MenuOption>(
+            onSelected: _onMenuOptionSelected,
+            itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOption>>[
+              const PopupMenuItem(
+                value: MenuOption.deleteAll,
+                child: Text("Delete all entries"),
+              ),
+            ],
+          )
+        ],
       ),
       body: ReorderableListView.builder(itemBuilder: (BuildContext context, int index) {
         final entry = _entries[index];
@@ -307,8 +328,41 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _promptRemoveAll() {
+    Widget confirmRemoveButton = TextButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        Navigator.of(context).pop();
+        removeAll();
+      },
+    );
+    Widget cancelRemoveButton = TextButton(
+      child: const Text("No"),
+      onPressed: () {Navigator.of(context).pop();},
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Are you sure?"),
+          content: const Text("Delete all entries?"),
+          actions: [
+            cancelRemoveButton,
+            confirmRemoveButton,
+          ],
+        );
+      },
+    );
+  }
+
   void remove(int index) => setState(() {
     _entries.removeAt(index);
+    _updateAverage();
+  });
+
+  void removeAll() => setState(() {
+    _entries.clear();
     _updateAverage();
   });
 
