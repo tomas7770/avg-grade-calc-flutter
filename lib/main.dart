@@ -179,8 +179,10 @@ class _HomePageState extends State<HomePage> {
     );
 
     nameController.text = _entries[index].name;
-    valueController.text = _entries[index].value.toString();
-    weightController.text = _entries[index].weight.toString();
+    valueController.text = _entries[index].value % 1.0 == 0.0
+        ? _entries[index].value.toStringAsFixed(0) : _entries[index].value.toString();
+    weightController.text = _entries[index].weight % 1.0 == 0.0
+        ? _entries[index].weight.toStringAsFixed(0) : _entries[index].weight.toString();
 
     showDialog(
       context: context,
