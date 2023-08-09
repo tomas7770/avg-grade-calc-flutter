@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Average", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(_average.isNaN ? "N/A" : _average.toString(), style: const TextStyle(fontSize: 24)),
+                Text(_average.isNaN ? "N/A" : _average.toStringAsFixed(3), style: const TextStyle(fontSize: 24)),
               ]
           ),
         ),
