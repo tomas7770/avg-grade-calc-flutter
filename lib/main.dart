@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController weightController = TextEditingController();
 
   final List<Entry> _entries = [];
-  double _average = 0.0;
+  double _average = double.nan;
 
   void _updateAverage() {
     double sum = 0, sumWeights = 0;
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Average", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(_average.toString(), style: const TextStyle(fontSize: 24)),
+                Text(_average.isNaN ? "N/A" : _average.toString(), style: const TextStyle(fontSize: 24)),
               ]
           ),
         ),
